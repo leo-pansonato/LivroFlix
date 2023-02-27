@@ -1,0 +1,79 @@
+html,body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #222;
+  font-weight: 600;
+  font-family: Poppins;
+  margin: 0
+}
+
+.form-signin {
+  max-width: 400px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.font-type{
+font-family: sans-serif;
+}
+
+body{
+  background-position-x: center;
+	background-size:cover;
+}
+
+.cad-link{
+  color: #1da0f2;
+  text-decoration: none;
+}
+
+.cad-link:hover{
+  text-decoration: underline;
+}
+
+.submit{
+  background: #1da0f2;
+  color: #fff;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.submit:hover{
+  background: #0c85d0;
+}
+
+.errorInfo{
+  color: rgb(255, 0, 0);
+  padding-left: 7px;
+  display: none ;
+  font-size: small;
+}
+
+
