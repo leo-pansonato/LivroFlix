@@ -1,10 +1,10 @@
 # LivroFlix
-<p align="center"><img src="TCC/Recursos/book_image2.png" alt="" width="132" height="132"></p>
+<p align="center"><img src="TCC/Recursos/book_image2.png" alt="" width="156" height="156"></p>
 
 
 ## About
 
-The `LivroFLix` is a web application that allows users to explore, search, and read books online. It offers a wide variety of books in different categories.
+`LivroFLix` is a web application that allows users to explore, search, and read books online. It offers a wide variety of books in different categories.
 
 ## Features
 
