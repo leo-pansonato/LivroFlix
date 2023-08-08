@@ -39,7 +39,7 @@
 
 3. Open your browser and access `http://localhost/TCC` to access the application.
 
-## Future Features
+## Future Plans
 - Read later
 - Reader reviews
 - Continue reading
