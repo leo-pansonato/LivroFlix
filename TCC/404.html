@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Não encontrado</title>
+    <link rel="shortcut icon" href="Recursos/book_image2.png">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>	
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-weight: lighter;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        body{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: white;
+        }
+
+        .texto{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .texto h1{
+            font-size: 8cm;
+            background: linear-gradient(to right, #ff8a00 0%, #dd4c4f 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .texto p{
+            margin-top: 20px;
+            font-size: 25px;
+        }
+
+        .redirecionar{
+            margin-top: 40px;
+            color: black;
+        }
+
+        .redirecionar a{
+            background: linear-gradient(to right, #ff8a00 0%, #dd4c4f 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .links{
+            margin-top: 30px;
+        }
+
+        .links i{
+            font-size: 30px;
+            color: #f77b13;
+            background-color: white;
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+              -6px -6px 10px -1px rgba(255,255,255,0.15);
+            transition: 0.1s;
+        }
+
+        .links i:hover{
+            scale: 1.1;
+        }
+
+        .links a{
+            text-decoration: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="texto">
+        <h1>404</h1>
+        <p>OPS! PÁGINA NÃO ENCONTRADA</p>
+    </div>
+    <div class="redirecionar">
+        A página que você procura talvez tenha sido removida ou não exista. <a href="index.html">Voltar a página inicial.</a>
+    </div>
+    <div class="links">
+        <a href="#"> <i class='bx bxl-facebook'></i> </a>
+        <a href="#"> <i class='bx bxl-instagram'></i> </a>
+        <a href="#"> <i class='bx bxl-twitter'></i> </a>
+        <a href="#"> <i class='bx bxl-linkedin'></i> </a>
+    </div>
+</body>
+</html>

@@ -17,6 +17,8 @@
 
 <body>
 <?php
+
+
 //Inicia sessão apenas se não estiver iniciada para evitar inumeros erros
 if(session_status()==PHP_SESSION_NONE){
 	session_start();
@@ -25,11 +27,10 @@ if(session_status()==PHP_SESSION_NONE){
 // Verifica se o usuário está conectado
 if (!isset($_SESSION['nome'])) {
 	// Se não estiver conectado, redireciona para a página de login
-	echo "<script>window.open('../../Sign-in/Sign-in.php','_self')</script>";
+	echo "<script>window.open('../../Sign-in/sign-in.html','_self')</script>";
 }
 
 include_once '../../conexao.php';
-
 
 $userName = $_SESSION['nome'];
 $imgPerfil = "../../Recursos/Perfis/".trim($_SESSION['email']).".jpg";
@@ -47,21 +48,19 @@ if (isset($_POST["home"])) {
 	echo "<script>window.open('../../Index.html','_self')</script>";
 }
 if (isset($_POST["perfil"])) {
-	echo "<script>window.open('../Perfil/perfil.php','_self')</script>";
+	echo "<script>window.open('../Perfil/perfil.php?id=".$_SESSION['id_user']."','_self')</script>";
 }
 if (isset($_POST["pesquisa"])) {
 	echo "<script>window.open('Pesquisa_resultados/pesquisa_resultados.php?pesquisa=','_self')</script>";
 }
 ?>
 	
-<div class="p-1 shadow-lg header"style="background-color:var(--cor-secundaria);">
+<div class="p-2 shadow-lg header">
   <div style="margin-left:3%; margin-right: 3%;">
 		  <div class="cabecalho">
-				<a href="pagina_protegida.php" class="d-flex align-items-center">
-					<img title="LivroFlix" src="../../Recursos/book_image2.png" height="60" style="padding-left: 20px; padding-right: 10px;">
-				</a>
+				
           <div class="nav me-lg-auto justify-content-center" style="margin-right: auto;">
-            <h2><a href="pagina_protegida.php" class="nav-link px-2 pt-3 link-light">LivroFlix</a></h2>
+            <a href="pagina_protegida.php" class="nav-link px-2 pt-2"><img src="../../Recursos/logo2.png" alt="Logo" height="50"></a>
           </div>
           <form method="get" action="Pesquisa_resultados/pesquisa_resultados.php">
             <div class="search-box">
@@ -73,7 +72,7 @@ if (isset($_POST["pesquisa"])) {
             </div>
 				  </form>
         <div class="mx-2 pt-3 nome">
-          <p style="font-size:17px;">Bem-vindo(a), <b style="color:white;"><?php echo $userName;?></b></p>
+          <p style="font-size:17px;">Bem-vindo(a), <b style="color:black;"><?php echo $userName;?></b></p>
         </div>
 
         <div class="dropdown text-end">
@@ -102,10 +101,22 @@ if (isset($_POST["pesquisa"])) {
           <button href="javascript:void(0)" class="btnFechar" onclick="fecharNav()">&times;</button>
           <div class="navegacao">
             <form method="POST">
-              <input type="submit" name="pesquisa" value="Pesquisar...">
-              <input type="submit" name="perfil" value="Perfil">
-              <input type="submit" name="home" value="Home">
-              <input type="submit" name="sair" value="Sair">
+              <div class="navbaritens">
+                <i class='bx-fw bx bx-search'></i>
+                <input type="submit" name="pesquisa" value="Pesquisar">   
+              </div>
+              <div class="navbaritens">
+                <i class='bx-fw bx bx-user'></i>
+                <input type="submit" name="perfil" value="Perfil">   
+              </div>
+              <div class="navbaritens">
+                <i class='bx-fw bx bx-home'></i>
+                <input type="submit" name="home" value="Home">   
+              </div>
+              <div class="navbaritens">
+                <i class='bx-fw bx bx-exit'></i>
+                <input type="submit" name="sair" value="Sair">   
+              </div>
             </form>
           </div>
         </aside>
@@ -127,20 +138,60 @@ if (isset($_POST["pesquisa"])) {
     </div>
   </div>
 </div>
-<div class="conteudo">
-  <div class="tipo">
-    <div class='classe text-start mt-5'>
-      <h2 class='fw-bold'>RECOMENDADOS
-      <div class='barra'></h2>
+<a href="Livro/livro.php?id=1" class="btn-destaque">
+<div class="destaque">
+  <div class="destaque-texto">
+    <div class="informacoes">
+      <div class="titulo">
+        NEYMAR - O SONHO BRASILEIRO
+      </div>
+      <div class="infos">
+         <div class="popularidade">
+            96% relevante
+         </div>
+         <div class="data">
+            2023
+         </div>
+         <div class="paginas">
+            132 páginas
+         </div>
+      </div>
+      <div class="descricao">
+      Se você tivesse de citar o nome do jogador de futebol brasileiro mais famoso hoje em dia, sem dúvida pensaria imediatamente em Neymar.
+      </div>
+      <div class="autor">
+        Peter Banke
+      </div>
+      <div class="genero">
+        Biografia
+      </div>
     </div>
-  </div> 
-    
-    <div class='mb-3 mt-1' style='font-size:25px; width:79%; position: relative; left: 50%; transform: translate(-50%, 0%);'>
-      <div class='principal rounded-4 row align-items-center mt-3'>
+  </div>
+  <div class="imagem-destaque">
+    <img src="https://besthqwallpapers.com/Uploads/12-11-2017/28299/thumb2-neymar-psg-paris-saint-germain-brazilian-football-player-soccer-star.jpg">
+    <div class="overlay"></div>
+  </div>
+</div>
+        </a>
+<div class="conteudo">
 
+    <div class='caixa mb-3 mt-1' style='font-size:25px; width:95%; position: relative; left: 50%; transform: translate(-50%, 0%);'>
+      <div class="titulo">
+        <h2>Recomendados</h2>
+        <div class="divider"></div>
+      </div>
+      <div class='principal rounded-3 row align-items-center'>
+        
 <?php
     //Recebe do banco de dados os livros referentes a classe RECOMENDADOS(futuro)
-    $resultadoexecutado = mysqli_query($conexao, "SELECT titulo, autor, descricao, capa, ID FROM livros ORDER BY (rating/votos) DESC");
+    $query = "
+    SELECT livros.titulo, livros.descricao, livros.capa, livros.ID, cadastro.nome AS nome_autor
+    FROM livros 
+    JOIN cadastro ON livros.autor = cadastro.ID ORDER BY (rating/votos) DESC
+    ";
+
+    $resultadoexecutado = mysqli_query($conexao, $query);
+    
     
     //Costrói o html principal da página com os livros já incluidos
     while ($livro = mysqli_fetch_assoc($resultadoexecutado)) {
@@ -151,7 +202,7 @@ if (isset($_POST["pesquisa"])) {
                   <figcaption>
                       <span>
                           <h5>".$livro['titulo']."</h5>
-                          <p class='fw-light'>".$livro['autor']."</p>
+                          <p class='fw-light'>".$livro['nome_autor']."</p>
                           ".$livro['descricao']."
                       </span>
                   </figcaption>
@@ -160,21 +211,25 @@ if (isset($_POST["pesquisa"])) {
       ";
     }
 ?>
-  </div>
-    </div>
   
-<div class="tipo">
-  <div class='classe text-start mt-5'>
-    <h2 class='fw-bold'>POPULARES
-    <div class='barra'></h2>
   </div>
-</div> 
-    <div class='mb-3 mt-1' style='font-size:25px; width:79%; position: relative; left: 50%; transform: translate(-50%, 0%);'>
-      <div class='principal rounded-4 row align-items-center mt-3'>
+    </div>
+    <div class='caixa mb-3 mt-5' style='font-size:25px; width:95%; position: relative; left: 50%; transform: translate(-50%, 0%);'>
+      <div class="titulo">
+        <h2>Populares</h2>
+        <div class="divider"></div>
+      </div>
+      <div class='principal rounded-3 row align-items-center'>
+        
+<?php
+    //Recebe do banco de dados os livros referentes a classe RECOMENDADOS(futuro)
+    $query = "
+    SELECT livros.titulo, livros.descricao, livros.capa, livros.ID, cadastro.nome AS nome_autor
+    FROM livros 
+    JOIN cadastro ON livros.autor = cadastro.ID ORDER BY views DESC
+    ";
 
-<?php 
-    //Recebe do banco de dados os livros referentes a classe POPULARES(futuro)
-    $resultadoexecutado = mysqli_query($conexao, "SELECT titulo, autor, descricao, capa, ID FROM livros ORDER BY views DESC");
+    $resultadoexecutado = mysqli_query($conexao, $query);
     
     //Costrói o html principal da página com os livros já incluidos
     while ($livro = mysqli_fetch_assoc($resultadoexecutado)) {
@@ -185,7 +240,7 @@ if (isset($_POST["pesquisa"])) {
                   <figcaption>
                       <span>
                           <h5>".$livro['titulo']."</h5>
-                          <p class='fw-light'>".$livro['autor']."</p>
+                          <p class='fw-light'>".$livro['nome_autor']."</p>
                           ".$livro['descricao']."
                       </span>
                   </figcaption>
@@ -194,16 +249,14 @@ if (isset($_POST["pesquisa"])) {
       ";
     }
 ?>
-
-    </div>
+  
   </div>
+    </div>
 </div> 
-
 
   <footer class="shadow-lg">
         <div class="container-footer">
             <div class="row-footer">
-                <!-- footer col-->
                 <div class="footer-col">
                     <h4>Empresa</h4>
                     <ul>
@@ -212,8 +265,6 @@ if (isset($_POST["pesquisa"])) {
                         <li><a href=""> Política de privacidade </a></li>
                     </ul>
                 </div>
-                <!--end footer col-->
-                <!-- footer col-->
                 <div class="footer-col">
                     <h4>Obter ajuda</h4>
                     <ul>
@@ -221,8 +272,6 @@ if (isset($_POST["pesquisa"])) {
                         <li><a href="#">Suporte Online</a></li>
                     </ul>
                 </div>
-                <!--end footer col-->
-                <!-- footer col-->
                 <div class="footer-col">
                     <h4>Funcionalidades</h4>
                     <ul>
@@ -232,8 +281,6 @@ if (isset($_POST["pesquisa"])) {
                         <li><a href="../Opções/opcoes.php">Configurações</a></li>
                     </ul>
                 </div>
-                <!--end footer col-->
-                <!-- footer col-->
                 <div class="footer-col">
                     <div class="medias-socias">
                         <a href="#"> <i class='bx bxl-facebook' ></i> </a>
@@ -242,10 +289,8 @@ if (isset($_POST["pesquisa"])) {
                         <a href="#"> <i class='bx bxl-linkedin'></i> </a>
                     </div>
                 </div>
-                <!--end footer col-->
             </div>
         </div>
     </footer>
-
 </body>
 </html>

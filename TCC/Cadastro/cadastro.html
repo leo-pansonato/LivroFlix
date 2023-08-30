@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Cadastrar-se</title>
+    
+    <link rel="shortcut icon" href="../Recursos/book_image2.png">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+
+<body background="../Recursos/background2.png">
+
+<div class="principal" id="principal">
+      <div class="voltar">
+        <a class="link-voltar" href="../index.html">
+          <img class="seta" src="../Recursos/esquerda_dark.png" alt="Voltar">
+        </a>
+      </div>
+                <!-- FORMULÁRIO -->
+                <form method="post">
+                    <img class="mb-2 rounded-circle" src="../Recursos/book_image2.png" alt="" width="132" height="132">
+                    <p class="mb-4 fs-1">Cadastrar-se</p>
+
+                        <!-- Campo de texto NOME -->
+                        <div class="form-floating">    
+                            <input id="input-nome" type="text" class="form-control  rounded-2" placeholder="Nome">
+                            <label>Nome completo</label>
+                        </div>
+                        <div class="text-start errorInfo rounded-2 lead" id="errorNome">*Nome Obrigatório</div>
+
+                        <!-- Campo de texto EMAIL -->
+                        <div class="form-floating">
+                            <input id="input-email" name="email" type="email" class="form-control mt-2" placeholder="Endereço de Email">
+                            <label>Endereço de Email</label>
+                        </div>
+                        <div class="text-start errorInfo rounded-2 lead" id="errorEmail">*Email Obrigatório</div>
+
+                        <!-- Campo de texto SENHA -->
+                        <div class="form-floating">
+                            <input id="input-senha" type="password" class="form-control rounded-2 mb-0 mt-2" placeholder="Senha">
+                            <label>Senha</label>
+                        </div>
+                        <div class="text-start errorInfo rounded-2 lead" id="errorSenha">*Senha Obrigatória</div>
+
+                        <!-- Campo de texto CONFIRMAR SENHA -->
+                        <div class="form-floating">
+                            <input id="input-confirmarsenha" type="password" class="form-control rounded-2 mb-0 mt-2" placeholder="Confirmar Senha">
+                            <label>Confirmar Senha</label>
+                        </div>
+                        <div class="text-start errorInfo rounded-2 lead" id="errorConfirmarSenha">*Senhas não correspondem</div> 
+                            
+                        <!-- Aviso de TERMOS -->
+                        <div class="form-group mt-2 mb-3">
+                            <label class="label-agree-term"> Ao concluir, você concorda com os <a href="https://imageproxy.ifunny.co/crop:x-20,resize:640x,quality:90x75/images/e125ced5455fb710b79746cdac25c428b9247a6a8442fb64a774eba719c1eac2_1.jpg" target="_blank" class="term-service">Termos de Serviço</a></label>
+                        </div>
+
+                        <!-- BOTÃO tipo submit -->
+                        <input type="submit" id="btn-cadastrar" class="submit" value="Cadastrar">
+                        <div class="text-start errorInfo lead" id="errorInfo">*Email já cadastrado</div>
+                
+                <!-- Texto avisando sobre o LOGIN -->
+                <p class="loginhere">Já possui uma conta? <a href="../Sign-in/sign-in.html" class="loginhere-link"> Entrar</a></p>
+                </form>
+
+                <script>
+                    $(document).ready(function(){
+                        
+                        var inputNome = $("#input-nome");
+                        var inputEmail = $("#input-email");
+                        var inputSenha = $("#input-senha");
+                        var inputConfirmarSenha = $("#input-confirmarsenha");
+                        var btnCadastrar = $("#btn-cadastrar");
+                        var erroNome = $("#errorNome");
+                        var erroEmail = $("#errorEmail");
+                        var erroSenha = $("#errorSenha");
+                        var erroConfirmarSenha = $("#errorConfirmarSenha");
+                        var erroInfo = $("#errorInfo");
+                        var maxHeight = 750;
+
+
+                        function exibirErro(object){
+                            object.css("display", "block");
+                            maxHeight += 20;
+                        }
+                    
+                        btnCadastrar.on("click", function(event) {
+                            event.preventDefault();
+                            const Data = new FormData();
+
+                            let nome = inputNome.val();
+                            let email = inputEmail.val();
+                            let senha = inputSenha.val();
+                            let confirmarSenha = inputConfirmarSenha.val();
+                            maxHeight = 750;
+                            
+                            erroNome.css("display", "none");
+                            erroEmail.css("display", "none");
+                            erroSenha.css("display", "none");
+                            erroConfirmarSenha.css("display", "none");
+                            erroInfo.css("display", "none");
+                            
+                            if ((nome=="")||(email=="")||(senha=="")||(confirmarSenha=="")) {
+                                erroInfo.css("display", "none");
+
+                                if (nome == "") {
+                                    exibirErro(erroNome);
+                                }
+                                if (email == "") {
+                                    exibirErro(erroEmail);
+                                }
+                                if (senha == "") {
+                                    exibirErro(erroSenha);
+                                }
+                                if (confirmarSenha == "") {
+                                    exibirErro(erroConfirmarSenha);
+                                }
+                            }
+                        else{
+                            if(senha == confirmarSenha){
+                                erroNome.css("display", "none");
+                                erroEmail.css("display", "none");
+                                erroSenha.css("display", "none");
+                                erroConfirmarSenha.css("display", "none");
+                                maxHeight = 750;
+                                Data.append("nome", nome);
+                                Data.append("email", email);
+                                Data.append("senha", senha);
+                                
+                                $.ajax({
+                                    type: "POST",
+                                    url: "cadastrar.php",
+                                    data: Data,
+                                    processData: false,
+                        	        contentType: false,
+                                
+                                    success: function (response) {
+                                        if(response  == "success"){
+                                            window.location.href = "../Sessao_iniciada/Pagina_Protegida/pagina_protegida.php";
+                                        }
+                                        else if(response == "email ja cadastrado"){
+                                            erroInfo.css("display", "block");
+                                            maxHeight += 20;
+                                            $("#principal").css("maxHeight", maxHeight + "px");
+                                        }
+                                    }
+                                });
+                            }
+                            else{
+                                exibirErro(erroConfirmarSenha);
+                            }
+                        }
+                        $("#principal").css("maxHeight", maxHeight + "px");
+                      });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
