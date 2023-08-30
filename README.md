@@ -11,7 +11,9 @@
 - Search books by title, author, or category
 - View book details, including synopsis
 - Read all books you want
-- Make your own profile
+- Customize your own profile
+- Follow your favorite writers
+- Save books
 
 ## Technologies Used
 
