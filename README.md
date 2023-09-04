@@ -55,3 +55,11 @@ Contributions are welcome! If you find issues or have suggestions for improvemen
 ## Contact
 
 If you have any questions or feedback, feel free to contact at [leopansonato@gmail.com](mailto:leopansonato@gmail.com).
+
+<br><br><br>
+
+# Screenshots
+<p><img src="TCC/Recursos/screenshot-home.png" height="356"></p>
+<p><img src="TCC/Recursos/screenshot-profile.jpeg" height="356"></p>
+<p><img src="TCC/Recursos/screenshot-read.png" height="356"></p>
+
