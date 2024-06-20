@@ -1,18 +1,17 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $currentPage = $_POST['currentPage'];
+    $id_session = $_POST['id_session'];
+    $id_livro = $_POST['id_livro'];
+    $currentPage = $_POST['current_page'];
 
     // Inclua a conexão com o banco de dados e outras configurações necessárias
     include_once '../../../../conexao.php';
 
-    $id_user = $_SESSION['id_user'];
-    $livroid = $_GET['id'];
-
-    $query = "UPDATE `lendo` SET `ultimaPagina` = $currentPage WHERE `id_user` = $id_user and `id_livro` = $livroid";
+    $query = "UPDATE `lendo` SET `ultimaPagina` = $currentPage , `ultima_vez` = current_timestamp()  WHERE `id_user` = $id_session and `id_livro` = $id_livro";
     $result = mysqli_query($conexao, $query);
 
     if (!$result) {
-        // Em caso de erro na atualização do banco de dados, exiba uma mensagem de erro ou realize alguma ação apropriada
+        // Erro na atualização do banco de dados
         die('Erro no MySQL: ' . mysqli_error($conexao));
     }
 

@@ -52,7 +52,7 @@ if (isset($_POST["perfil"])) {
 	echo "<script>window.open('../../Perfil/perfil.php','_self')</script>";
 }
 if (isset($_POST["opcoes"])) {
-	echo "<script>window.open('../../Opções/opcoes.php','_self')</script>";
+	echo "<script>window.open('#','_self')</script>";
 }
 
 // Inicia as variaveis e define o valor digitado nos campos de texto a elas.
@@ -71,22 +71,26 @@ if (isset($_GET['classificacao'])) {
 ?>
 
 <!-- Barra de Navegação -->
-<header class="p-1" style="background-color:#ff9900; width: 110vw;">
+<header class="p-1" style="background-color:var(--cor-amarela); width: 110vw; height:80px;">
 		<div style="margin-left:3%; margin-right: 3%;">
 		  	<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <a href="../pagina_protegida.php" class="d-flex align-items-center">
-					  <img title="LivroFlix" src="../../../Recursos/book_image2.png" height="60" style="padding-left: 20px; padding-right: 10px;">
-				  </a>
-				<div class="nav me-lg-auto justify-content-center" style="margin-right: auto;">
-                    <h2><a href="../pagina_protegida.php" class="nav-link px-2 pt-3 link-light">LivroFlix</a></h2>
-                </div>
+          <a href="../pagina_protegida.php" class="nav-link px-2 pt-2"><img src="../../../Recursos/logo2.png" alt="Logo" height="50"></a>
                 <aside id="menuOculto" class="menuOculto">
           <button href="javascript:void(0)" class="btnFechar" onclick="fecharNav()">&times;</button>
           <div class="navegacao">
             <form method="POST">
-              <input type="submit" name="voltar" value="Voltar">
-              <input type="submit" name="opcoes" value="Opções">
-              <input type="submit" name="sair" value="Sair">
+            <div class="navbaritens">
+                <i class='bx-fw bx bx-arrow-back'></i>
+                <input type="submit" name="voltar" value="Voltar">   
+              </div>
+              <div class="navbaritens">
+                <i class='bx-fw bx bx-slider-alt'></i>
+                <input type="submit" name="opcoes" value="Opções">   
+              </div>
+              <div class="navbaritens">
+                <i class='bx-fw bx bx-exit'></i>
+                <input type="submit" name="sair" value="Sair">   
+              </div>
             </form>
           </div>
         </aside>
@@ -183,13 +187,13 @@ if (isset($_GET['classificacao'])) {
             });
           </script>
 
-          
             <a class="filter-btn">
               <img class="filter-yellow" src="../../../Recursos/filter-yellow.png" alt="">
               <img class="filter-white" src="../../../Recursos/filter-white.png" alt="">
               <p class="filter-btn-text">Filtro</p>
             </a>
         </div>
+
         <script type="text/javascript">
           const filterBtn = document.querySelector('.filter-btn');
           const filterDropdown = document.querySelector('.filter-dropdown');
@@ -240,16 +244,22 @@ if (isset($_GET['classificacao'])) {
         $classificacao = null;
       }
     }
+    
+    $query = "
+      SELECT livros.titulo, livros.descricao, livros.capa, livros.ID, cadastro.nome AS nome_autor
+      FROM livros 
+      JOIN cadastro ON livros.autor = cadastro.ID
+      WHERE (livros.titulo LIKE '$pesquisa' OR cadastro.nome LIKE '$pesquisa')
+    ";
 
-    $sql = "SELECT titulo, autor, descricao, capa, ID FROM livros WHERE (titulo LIKE '$pesquisa' OR autor LIKE '$pesquisa')";
     if ($genero) {
-      $sql .= " AND genero LIKE '$genero'";
+      $query .= " AND livros.genero LIKE '$genero'";
     }
     if ($classificacao) {
-      $sql .= " ORDER BY $classificacao";
+      $query .= " ORDER BY $classificacao";
     }
 
-    $resultadoexecutado = mysqli_query($conexao, $sql);
+    $resultadoexecutado = mysqli_query($conexao, $query);
     if(mysqli_num_rows($resultadoexecutado)==1){
       $msgresultados = strval(mysqli_num_rows($resultadoexecutado)) . " resultado encontrado";
     }
@@ -262,7 +272,12 @@ if (isset($_GET['classificacao'])) {
     echo "
     <div class='total'><i class='bx bx-info-circle'></i>$msgresultados</div>";
   echo"  
-  <div class='resultados'>";
+  <div class='caixa-resultados'>
+    <div class='classe'>
+      <p>Comédia</p>
+    </div>
+    <div class='resultados'>
+  ";
     while ($livro = mysqli_fetch_assoc($resultadoexecutado)) {
 
         echo "
@@ -272,7 +287,7 @@ if (isset($_GET['classificacao'])) {
                       <figcaption>
                           <span>
                               <h5>".$livro['titulo']."</h5>
-                              <p class='fw-light'>".$livro['autor']."</p>
+                              <p class='fw-light'>".$livro['nome_autor']."</p>
                               ".$livro['descricao']."
                           </span>
                       </figcaption>
@@ -281,6 +296,7 @@ if (isset($_GET['classificacao'])) {
           ";
     }
     ?>
+    </div>
   </div>
 
 

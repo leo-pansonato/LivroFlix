@@ -62,15 +62,13 @@
                             <label for="floatingInput">Novo Nome</label>
                         </div>
                         
-
                         <!-- Campo de texto SENHA -->
                         <div class="form-floating">
                             <input name="senha" type="password" class="form-control mt-3" id="floatingPassword" placeholder=" " value="<?php echo $reescrever_senha; ?>">
                             <label for="floatingInput">Nova Senha</label>
                         </div>
                         <div class="text-start errorInfo rounded-2 lead" id="errorsenha">*Senhas não correspondem</div>
-                        
-
+    
                         <!-- Campo de texto CONFIRMAR SENHA -->
                         <div class="form-floating">
                             <input name="confirmarsenha" type="password" class="form-control mt-3" id="floatingPassword" placeholder=" " value="<?php echo $reescrever_confirmarsenha; ?>">
@@ -91,7 +89,7 @@
     </div>
 
 
-    <?php
+<?php
   session_start();
 
   // Conecta ao banco de dados.

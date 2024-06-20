@@ -1,6 +1,8 @@
 :root{
   --cor-primaria: #222222;
-  --cor-secundaria: #ff9900; --cor-secundaria-hover: #ce7b00;
+  --cor-branca: #fff;
+  --cor-gelo: #f4f5fb;
+  --cor-amarela: #ff9900; --cor-amarela-hover: #ce7b00;
   --cor-terciaria: #414141;
 }
 
@@ -12,8 +14,7 @@
 }
 
 body{
-  background-color: var(--cor-primaria);
-  background-image: url(../../../Recursos/background.jpg);
+  background-color: var(--cor-gelo);
   background-size: cover;
   background-repeat: no-repeat;
   overflow-x: hidden;
@@ -31,11 +32,11 @@ body{
   flex-wrap: nowrap;
   padding: 10px;
   margin: 20px;
-  background-color: #333;
-  color: #fff;
+  background-color: var(--cor-branca);
+  color: var(--cor-amarela);
   border-radius: 40px;
   box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
-              -6px -6px 10px -1px rgba(0,0,0,0.15);
+  -6px -6px 10px -1px rgba(255,255,255,0.15);
 }
 
 .total i{
@@ -43,23 +44,46 @@ body{
   scale: 1.2;
 }
 
+.caixa-resultados{
+  display: flex;
+  flex-direction: column;
+  margin: 0px 5% 15% 5%;
+  background-color: var(--cor-branca);
+  width: fit-content;
+  border-radius: 20px;
+  transition: 0.4s;
+}
+
+.classe{
+  margin: 20px 0px 0px 50px;
+}
+
+.classe p{
+  margin: 0;
+  font-weight: bold;
+  font-size: 30px;
+}
 
 .resultados{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  width: fit-content;
-  margin: 0px 15% 15% 15%;
-  background-color: var(--cor-terciaria);
-  border-radius: 40px;
-  transition: 0.4s;
+}
+
+.principal form{
+  background-color: var(--cor-branca);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  
 }
 
 .pesquisa{
-  background-color: rgb(0, 0, 0, 0.30);
-  margin: 40px 20px 10px 20px;
-  padding: 22px 16px 22px 16px;
+  /* background-color: rgb(0, 0, 0, 0.30); */
+  margin: 40px 5% 10px 5%;
+  padding: 22px 16px 12px 16px;
   border-radius: 40px;
   display: flex;
   flex-direction: column;
@@ -81,7 +105,7 @@ body{
 }
 
 .search-box:hover > .search-btn{
-  background-color: var(--cor-secundaria);
+  background-color: var(--cor-amarela);
 }
 
 .search-box:hover > .search-btn .loupe-yellow{
@@ -104,7 +128,7 @@ body{
 }
 
 .search-text:focus + .search-btn{
-  background-color: var(--cor-secundaria);
+  background-color: var(--cor-amarela);
 }
 
 .search-text:focus + .search-btn .loupe-yellow{
@@ -195,7 +219,7 @@ body{
 }
 
 .filter-btn:hover{
-  background-color: var(--cor-secundaria);
+  background-color: var(--cor-amarela);
   .filter-white{
     opacity: 1;
   }
@@ -208,11 +232,11 @@ body{
 }
 
 .filter-btn-actived{
-  background-color: var(--cor-secundaria);
+  background-color: var(--cor-amarela);
 }
 
 .filter-btn:active{
-  background-color: var(--cor-secundaria-hover);
+  background-color: var(--cor-amarela-hover);
 }
 
 .filter-btn-text{
@@ -404,12 +428,24 @@ section{
 .navegacao input{
   background-color: transparent;
   border: none;
-  padding: 8px 8px 8px 32px;
+  padding: 8px;
   text-decoration: none;
   font-size: 25px;
   color: #888;
   display: block;
   transition: 0.3s;
+}
+
+.navbaritens{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navegacao .bx{
+  margin: 0px 0px -7px 18px;
+  color: #888;
+
 }
 
 .navegacao input:hover{
@@ -468,7 +504,7 @@ section{
 
 @media (max-width: 800px) {
   .imagens{width: 140px;height: 175px;}
-  picture > figcaption {position:absolute;width: 200px;height: 210px;bottom: -97.5px;left: -78px;}
+  picture > figcaption {position:absolute;width: 168px;height: 210px;bottom: -97.5px;left: -78px;}
   .menuOculto{padding-top: 15px; max-width: 200px;}
   .navegacao input{font-size: 16px;}
 }

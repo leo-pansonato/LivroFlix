@@ -2,29 +2,31 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+}
   
-  :root {
+:root {
     --light: #cccccc;
     --dark: #151515;
-  }
-  #theme-switcher {
-    display: none;
-  }
+}
 
-  #app-container {
+#theme-switcher {
+    display: none;
+}
+
+#app-container{
     height: 100vh;
     background: var(--light);
     color: var(--dark);
-    font-family: monospace;
+    font-family: sans-serif;
     font-size: 1.5rem;
     transition: 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-  }
-  .theme-switcher-area {
+    justify-content: start;
+}
+
+.theme-switcher-area {
     border: 1px solid var(--light);
     background: var(--dark);
     border-radius: 2rem;
@@ -34,20 +36,20 @@
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-  }
-  .theme-switcher-button { 
+}
+.theme-switcher-button { 
     position: relative;
     display: block;
     background: #f1aa02;
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
-    border: 2px dashed var(--dark);
+    border: 1px dashed var(--dark);
     transition: 0.3s;
-  }
-  .theme-switcher-button::after {
+}
+.theme-switcher-button::after {
     position: absolute;
-    left: 10px;
+    left: 9px;
     top: 1px;
     width: 80%;
     height: 80%;
@@ -56,91 +58,83 @@
     border-radius: 50%;
     opacity: 0;
     transition: 0.3s;
-  }
-  #theme-switcher:checked + #app-container .theme-switcher-button {
+}
+#theme-switcher:checked + #app-container .theme-switcher-button {
     transform: translateX(100%);
     border: none;
 }
-#theme-switcher:checked + #app-container .theme-switcher-button::after {
+#theme-switcher:checked + #app-container .theme-switcher-button::after{
     opacity: 1;
 }
-#theme-switcher:checked + #app-container {
+#theme-switcher:checked + #app-container{
     background: var(--dark);
     color: var(--light);
 }
-body{
-    background-color: var(--light);
-    color: var(--dark);
+
+#text-container{
+    margin-bottom: 20px;
+    margin-left: 60px;
+    margin-right: 60px;
+    white-space: pre-line;
 }
 
-.pagecont{
-    width: 60px;
-    border-color: transparent;
+#button-container{
+    position: fixed;
+    bottom: 12px;;
 }
 
-.titlepage{
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.navButton{
+    border: 1px solid #6c757d;
+    border-radius: 8px;
+    height: 40px;
+    background-color: #fff;
+    color: #6c757d;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
 }
 
-.conteudo{
-    position: absolute;
-    height:85%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    overflow-y: auto;
+.navButton:hover{
+    background-color: #3b3b3b;
+    color: white;
 }
 
-.navegacao{
-    position:absolute;
-    top: 95%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.btnDark , .btnLight , .btnHome , .back , .next{
-    background-color: #ff9900;
-    border: none;
-    color: black;
+.navButton:active {
+    background-color: #6c757d;
 }
 
-.back{
-    background-image: url("https://cdn-icons-png.flaticon.com/512/3114/3114883.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 2em;
-    margin-right: 1%;
-    width: 10%;
-    height: 5%;
+.navButton:disabled{
+    background-color: #ccc;
+    border-color: #999;
+    color: #999;
 }
 
-.next{
-    background-image: url("https://cdn-icons-png.flaticon.com/512/3114/3114931.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 2em;
-    margin-left: 1%;
-    margin-right: 2%;
-    width: 10%;
-    height: 5%;
+.return{
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 20px;;
+    left: 20px;
+    transition: opacity 0.2s;
 }
 
-::-webkit-scrollbar {
-    width: 12px; 
+#pages-container{
+    margin-top: 20px;
 }
-  
-::-webkit-scrollbar-track {
-    background-color: #f5f5f5;
-    border-radius: 10px;
+
+#row{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
 }
-  
-::-webkit-scrollbar-thumb {
-    background-color: #888; 
-    border-radius: 10px; 
-}
-  
-::-webkit-scrollbar-thumb:hover {
-    background-color: #555; 
+
+#menu-container{
+    padding-left: 25px;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
 }

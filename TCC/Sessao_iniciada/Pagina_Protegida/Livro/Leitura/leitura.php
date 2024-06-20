@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../../Recursos/book_image2.png">
     <title>Leitura</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="style.css" rel="stylesheet">
 
-    <link href="newstyle.css" rel="stylesheet">
     <?php
         //Inicia sessão apenas se não estiver iniciada para evitar inumeros erros
         if(session_status()==PHP_SESSION_NONE){
@@ -23,11 +24,16 @@
 
         $id_user = $_SESSION['id_user'];
         $livroid = $_GET['id'];
+
         $resultadoexecutado = mysqli_query($conexao, "SELECT `conteudo` FROM `livros` WHERE ID = $livroid");
 
         while ($data = mysqli_fetch_assoc($resultadoexecutado)) {
             $conteudo = $data['conteudo'];
-            
+        }
+
+        if(mysqli_num_rows(mysqli_query($conexao, "SELECT * FROM `lendo` WHERE `id_user`=$id_user and `id_livro`=$livroid")) == 0){
+            $query = "INSERT INTO `lendo`(`id_user`, `id_livro`, `ultimaPagina`, `ultima_vez`) VALUES ('$id_user','$livroid', '1', current_timestamp())";
+            mysqli_query($conexao, $query);
         }
 
         function getLastPage($conn, $id_user, $id_livro) {
@@ -41,10 +47,6 @@
         }
         
         $lastPage = getLastPage($conexao, $id_user, $livroid) - 1;
-
-        function setLastPage($conn, $id_user, $id_livro, $lastPage) {
-            mysqli_query($conn, "UPDATE `lendo` SET `ultimaPagina` = $lastPage + 1 WHERE `id_user` = $id_user and `id_livro` = $id_livro");
-        }
 
     ?>
 </head>
@@ -69,64 +71,94 @@
     </div>
 
     <script>
-        const themeSwitcher = document.getElementById("theme-switcher");
-        const returnDark = document.getElementById("return_dark");
-        const returnLight = document.getElementById("return_light");
-        var textContainer = document.getElementById("text-container");
-        var previousButton = document.getElementById("previous-button");
-        var nextButton = document.getElementById("next-button");
-        var contadorInput = document.getElementById("contadorInput");
-        var pagesText = document.getElementById("pagesText");
+        $(document).ready(function() {
+            const themeSwitcher = $("#theme-switcher");
+            const returnDark = $("#return_dark");
+            const returnLight = $("#return_light");
+            const textContainer = $("#text-container");
+            
+            const previousButton = $("#previous-button");
+            const nextButton = $("#next-button");
+            const contadorInput = $("#contadorInput");
+            const pagesText = $("#pagesText");
 
-        themeSwitcher.addEventListener("change", function() {
-        if (this.checked) {
-            returnDark.style.opacity = "0";
-            returnLight.style.opacity = "1";
-        } else {
-            returnDark.style.opacity = "1";
-            returnLight.style.opacity = "0";
-        }
+            themeSwitcher.on("change", function() {
+                if (this.checked) {
+                    returnDark.css("opacity", "0");
+                    returnLight.css("opacity", "1");
+                } else {
+                    returnDark.css("opacity", "1");
+                    returnLight.css("opacity", "0");
+                }
+            });
+            
+            //var ContainerHeight = textContainer.clientHeight;
+            //console.log(ContainerHeight);
+            var maxLinesHeight = 630/28.125;
+            console.log(maxLinesHeight);
+            var text = <?php echo json_encode($conteudo);?>;
+            var textParts = [];
+            var linesPerPart = maxLinesHeight;
+            var currentPart = <?php echo $lastPage;?>;
+            var totalParts = Math.ceil(text.split('\n').length / linesPerPart);
+
+            var lines = text.split('\n');
+            for (var i = 0; i < lines.length; i += linesPerPart) {
+                var part = lines.slice(i, i + linesPerPart);
+                textParts.push(part.join('\n'));
+            }
+
+            function updateText() {
+                textContainer.text(textParts[currentPart]);
+                var currentPage = currentPart + 1;
+                pagesText.text("Página " + currentPage + " de " + totalParts);
+
+                previousButton.prop("disabled", currentPart === 0);
+                nextButton.prop("disabled", currentPart === totalParts - 1);
+
+                const Data = new FormData();
+                Data.append("id_session", "<?php echo $id_user;?>");
+                Data.append("id_livro", "<?php echo $livroid;?>");
+                Data.append("current_page", currentPart+1);
+
+                $.ajax({
+                    url: "setlastpage.php",
+                    type: "POST",
+                    data: Data,
+                    processData: false,
+            		contentType: false,
+
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        console.log("Error:", error);
+                    }
+                });
+            }
+
+            function nextPart() {
+                if (currentPart < totalParts - 1) {
+                    currentPart++;
+                    updateText();
+                }
+            }
+
+            function previousPart() {
+                if (currentPart > 0) {
+                    currentPart--;
+                    updateText();
+                }
+            }
+
+            nextButton.on("click", nextPart);
+            previousButton.on("click", previousPart);
+
+            updateText();
         });
-
-        var text = <?php echo json_encode($conteudo);?>;
-        var textParts = [];
-        var linesPerPart = 29;
-        var currentPart = <?php echo $lastPage;?>;
-        var totalParts = Math.ceil(text.split('\n').length / linesPerPart);
-
-        var lines = text.split('\n');
-        for (var i = 0; i < lines.length; i += linesPerPart) {
-            var part = lines.slice(i, i + linesPerPart);
-            textParts.push(part.join('\n'));
-        }
-
-        function updateText() {
-            textContainer.textContent = textParts[currentPart];
-            var currentPage = currentPart + 1;
-            pagesText.textContent = "Página " + currentPage + " de " + totalParts;
-
-            previousButton.disabled = currentPart === 0;
-            nextButton.disabled = currentPart === totalParts - 1;
-        }
-
-        function nextPart() {
-            if (currentPart < totalParts - 1) {
-                currentPart++;
-                updateText();
-            }
-        }
-
-        function previousPart() {
-            if (currentPart > 0) {
-                currentPart--;
-                updateText();
-            }
-        }
-
-        nextButton.addEventListener("click", nextPart);
-        previousButton.addEventListener("click", previousPart);
-
-        updateText();
     </script>
+</body>
+</html>
+
 </body>
 </html>
